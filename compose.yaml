@@ -1,0 +1,9 @@
+services:
+  chiderahportfolio:
+    image: chiderahportfolio
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8000:8000
+      - 3000:3000

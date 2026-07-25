@@ -85,8 +85,8 @@ const Introduction = () => {
           </p>
           <p className="text-xs xxs:text-lg lg:text-[18px] my-6">
             I'm a <span className="bg-highlight">{aboutData?.title || "Full Stack"}</span>{" "}
-            Web <span className="bg-highlight"> Developer</span> based in
-            Nigeria. {aboutData?.description || "I build responsive and high-performance web applications using modern technologies, ensuring accessibility, scalability, and maintainability."}
+            Software <span className="bg-highlight"> Developer</span> based in
+            Nigeria. {aboutData?.description || "I build responsive and high-performance web applications using modern technologies such as HTML, CSS, JavaScript and React.Js for frontend to build responsive and user-friendly interface, i work with backend technologies such as Python and Django to build REST APIs, handle authentication and manage databases logic,ensuring accessibility, scalability, and maintainability."}
           </p>
           <p className="text-center lg:text-start">
             <a
