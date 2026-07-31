@@ -47,4 +47,16 @@ Class PortfolioView(APIView):
         
         
 Class BlogView(APIView):
+    def get( self, request ):
+        id = request.data.get(id)
+        title = request.data.get('title')
+        content = request.data.get('content')
+        image = request.data.get({ image })
+        created_at = request.data.get({})
+        slug = request.data.get({})
+        
+        
+        
+        
+Class  
     
