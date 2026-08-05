@@ -8,6 +8,8 @@ import Profession from "../components/profession/Profession";
 import HappyClients from "../components/happyClients/HappyClients";
 import Testimonial from "../components/testimonial/Testimonial";
 import Contact from "../components/contact/Contact";
+import Experience from "../components/Experience/Experience";
+import skills from "../components/skills/skills";
 import "../../index.css";
 
 const Home = () => {

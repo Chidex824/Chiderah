@@ -80,7 +80,7 @@ const Introduction = () => {
           <p className="text-3xl xxs:text-4xl sm:max-xl:text-5xl xl:text-6xl font-semibold w-full">
             Hello, I’m
             <span className="text-nowrap shrink-0 inline-block w-full">
-              {aboutData?.name || "Ugwu Chiderah"}
+              {aboutData?.name || "Ugwu Chiderah Williams"}
             </span>
           </p>
           <p className="text-xs xxs:text-lg lg:text-[18px] my-6">
