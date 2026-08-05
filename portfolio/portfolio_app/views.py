@@ -11,52 +11,71 @@ import uuid
 
 # Create your views here.
 
-Class About/IntroductionView(APIView):
-    """UserView"""
+
+class AboutView(APIView):
     permission_classes = [AllowAny]
-    def get( self, request ):
-        name = request.data.get('name')
-        title = request.data.get('title')
-        description = request.data.get('description')
-        email = request.data.get('email')
-        stats = request.data.get([{title, description}])
-        
-        
-        
-        
-Class ContactView(APIView):
-    def post(self,request):
-        name = request.data.post('name')
-        email = request.data.post('email')
-        location = request.data.post('location')
-        budget = request.data.post('budget')
-        subject = request.data.post('subject')
-        message = request.data.post('message')
-        
-        
-        
-Class PortfolioView(APIView):
-    def get( self, request ):
-        id = request.data.get(id)
-        title = request.data.get('title')
-        description = request.data.get('description')
-        image = request.data.get(image)
-        category = request.data.get('category')
-        link = request.data.get({link})
-        
-        
-        
-Class BlogView(APIView):
-    def get( self, request ):
-        id = request.data.get(id)
-        title = request.data.get('title')
-        content = request.data.get('content')
-        image = request.data.get({ image })
-        created_at = request.data.get({})
-        slug = request.data.get({})
-        
-        
-        
-        
-Class  
+
+    def get(self, request):
+        about = About.objects.order_by('-id').first()
+        if about:
+            serializer = AboutSerializer(about)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        # fallback
+        return Response({"name": "Your Name", "title": "Your Title"}, status=status.HTTP_200_OK)
+
+
+class ContactView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = ContactSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PortfolioListView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        projects = Portfolio.objects.all().order_by('-created_at')
+        serializer = PortfolioSerializer(projects, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class BlogListView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        posts = Blog.objects.all().order_by('-created_at')
+        serializer = BlogSerializer(posts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class TestimonialsView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        testimonials = Testimonial.objects.all()
+        serializer = TestimonialSerializer(testimonials, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class SkillsView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        skills = Skill.objects.all()
+        serializer = SkillSerializer(skills, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ExperienceView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        experience = Experience.objects.all().order_by('-start_date')
+        serializer = ExperienceSerializer(experience, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
