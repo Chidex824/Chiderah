@@ -66,11 +66,26 @@ Your Django backend should provide the following API endpoints:
 
 ### Environment Configuration
 
-Create a `.env.local` file in your Django project root:
+Create a `.env.local` file in the repository root for the Vite frontend:
 
 ```env
 VITE_API_BASE_URL=http://localhost:8000/api
 ```
+
+### Connect Django to Neon PostgreSQL
+
+1. Create a Neon project and database, then copy its PostgreSQL connection string from the Neon dashboard. Use the pooled connection string for a serverless deployment, and keep its `sslmode=require` parameter.
+2. In the Vercel project's **Settings → Environment Variables**, set `DATABASE_URL` to the Neon connection string, `VITE_API_BASE_URL` to `/api`, and `DJANGO_SECRET_KEY` to a newly generated secret. Generate one with `python -c "import secrets; print(secrets.token_urlsafe(50))"`. Set `DJANGO_ALLOWED_HOSTS` to any custom domains, comma-separated; Vercel's deployment hostname is added automatically. Django defaults to `DEBUG=False` on Vercel. Add these variables to the environments you deploy (for example, Production), then redeploy. Keep secrets out of source control. The Vercel rewrites send `/api/` requests to Django and other requests to the frontend.
+3. Apply Django migrations to create the tables. In PowerShell, from the repository root:
+
+   ```powershell
+   $env:DATABASE_URL = "paste-your-neon-connection-string-here"
+   python portfolio\manage.py migrate
+   ```
+
+   The command uses the same database URL as the deployed app. Set `DATABASE_URL` in your local shell before running the migration; without it, Django continues to use the local SQLite database.
+
+Migrations create the schema but do not copy existing records from SQLite to Neon.
 
 ### CORS Configuration
 

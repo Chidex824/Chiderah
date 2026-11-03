@@ -12,6 +12,12 @@
   },
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "portfolio"
+      }
+    },
+    {
       "source": "/(.*)",
       "destination": {
         "service": "app"
