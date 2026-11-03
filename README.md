@@ -1,8 +1,6 @@
-# chiderah_portfolio
+# chiderah
 
 #### Preview
-
-- [Demo](https://chiderah_portfolio.github.io/chiderah_portfolio/)
 
 ## 🔒 Security Features
 
