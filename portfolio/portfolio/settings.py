@@ -22,14 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ayh-hk$a-y(qx14azzppn+gbwb+z^u*s+of%243yfiz6l8ay#*'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 IS_VERCEL = os.environ.get('VERCEL') == '1'
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', SECRET_KEY)
-if IS_VERCEL and not os.environ.get('DJANGO_SECRET_KEY'):
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+if IS_VERCEL and not SECRET_KEY:
     raise ImproperlyConfigured('Set DJANGO_SECRET_KEY in the Vercel environment.')
+if not SECRET_KEY:
+    SECRET_KEY = 'local-development-only-not-for-production'
 
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False' if IS_VERCEL else 'True').lower() in {
     'true',
