@@ -13,6 +13,7 @@ class Contact(models.Model):
 	budget = models.CharField(max_length=100, blank=True)
 	subject = models.CharField(max_length=300, blank=True)
 	message = models.TextField()
+	privacy_consent = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
@@ -54,6 +55,7 @@ class Testimonial(models.Model):
 	designation = models.CharField(max_length=200, blank=True)
 	company = models.CharField(max_length=200, blank=True)
 	image = models.URLField(blank=True)
+	publication_consent = models.BooleanField(default=False)
 	is_approved = models.BooleanField(default=False)
 
 	def __str__(self):

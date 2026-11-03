@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { apiService } from "../../services/api";
 import { validators, sanitizers } from "../../utils/security";
 
@@ -26,7 +27,8 @@ const Form = () => {
     location: '',
     budget: '',
     subject: '',
-    message: ''
+    message: '',
+    privacy_consent: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
@@ -90,6 +92,10 @@ const Form = () => {
       errors.message = 'Please enter a message (max 2000 characters)';
     }
 
+    if (!formData.privacy_consent) {
+      errors.privacy_consent = 'Please agree to the privacy policy before submitting.';
+    }
+
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -115,7 +121,8 @@ const Form = () => {
         location: sanitizers.text(formData.location),
         budget: sanitizers.text(formData.budget),
         subject: sanitizers.text(formData.subject),
-        message: sanitizers.text(formData.message)
+        message: sanitizers.text(formData.message),
+        privacy_consent: formData.privacy_consent
       };
 
       await apiService.submitContactForm(sanitizedData);
@@ -127,7 +134,8 @@ const Form = () => {
         location: '',
         budget: '',
         subject: '',
-        message: ''
+        message: '',
+        privacy_consent: false
       });
       setFieldErrors({});
     } catch (error) {
@@ -242,6 +250,32 @@ const Form = () => {
               <p className="text-red-500 text-sm mt-1">{fieldErrors.message}</p>
             )}
           </div>
+          <label className="flex items-start gap-2 text-sm text-gray-600">
+            <input
+              type="checkbox"
+              name="privacy_consent"
+              className="checkbox checkbox-primary mt-1"
+              checked={formData.privacy_consent}
+              onChange={(event) => {
+                setFormData((previous) => ({
+                  ...previous,
+                  privacy_consent: event.target.checked,
+                }));
+                setFieldErrors((previous) => ({
+                  ...previous,
+                  privacy_consent: '',
+                }));
+              }}
+              required
+            />
+            <span>
+              I agree that my information may be used to respond to my inquiry, as described in the{" "}
+              <Link className="underline" to="/policies#privacy-policy">Privacy Policy</Link>.
+            </span>
+          </label>
+          {fieldErrors.privacy_consent && (
+            <p className="text-red-500 text-sm mt-1">{fieldErrors.privacy_consent}</p>
+          )}
           <button
             link
             type="submit"

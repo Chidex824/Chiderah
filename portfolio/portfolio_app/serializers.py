@@ -3,9 +3,18 @@ from .models import Contact, Portfolio, Blog, Testimonial, Skill, Experience, Ab
 
 
 class ContactSerializer(serializers.ModelSerializer):
+	privacy_consent = serializers.BooleanField(required=True)
+
 	class Meta:
 		model = Contact
 		fields = '__all__'
+
+	def validate_privacy_consent(self, value):
+		if not value:
+			raise serializers.ValidationError(
+				'Consent to the privacy policy is required to send this message.'
+			)
+		return value
 
 
 class PortfolioSerializer(serializers.ModelSerializer):
@@ -64,15 +73,29 @@ class TestimonialSerializer(serializers.ModelSerializer):
 			'image',
 			'is_approved',
 		)
-		read_only_fields = ('is_approved',)
+		read_only_fields = ('is_approved', 'publication_consent')
 
 
 class TestimonialSubmissionSerializer(serializers.ModelSerializer):
 	message = serializers.CharField(max_length=2000, trim_whitespace=True)
+	publication_consent = serializers.BooleanField(required=True)
 
 	class Meta:
 		model = Testimonial
-		fields = ('name', 'message', 'designation', 'company')
+		fields = (
+			'name',
+			'message',
+			'designation',
+			'company',
+			'publication_consent',
+		)
+
+	def validate_publication_consent(self, value):
+		if not value:
+			raise serializers.ValidationError(
+				'Consent to publish this review is required.'
+			)
+		return value
 
 
 class SkillSerializer(serializers.ModelSerializer):

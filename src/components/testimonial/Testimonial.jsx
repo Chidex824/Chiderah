@@ -9,6 +9,7 @@ import TestimonialTemplate from "./TestimonialTemplate";
 import "./testimonial.css";
 import { apiService } from "../../services/api";
 import LoadingSpinner from "../common/loading/LoadingSpinner";
+import { Link } from "react-router-dom";
 
 const Testimonial = () => {
   const [testimonialData, setTestimonialData] = useState([]);
@@ -19,6 +20,7 @@ const Testimonial = () => {
     designation: "",
     company: "",
     message: "",
+    publication_consent: false,
   });
   const [submissionStatus, setSubmissionStatus] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -44,7 +46,11 @@ const Testimonial = () => {
   }, []);
 
   const handleChange = (event) => {
-    setFormData((current) => ({ ...current, [event.target.name]: event.target.value }));
+    const { name, type, value, checked } = event.target;
+    setFormData((current) => ({
+      ...current,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = async (event) => {
@@ -55,7 +61,13 @@ const Testimonial = () => {
     try {
       const response = await apiService.submitTestimonial(formData);
       setSubmissionStatus(response.detail);
-      setFormData({ name: "", designation: "", company: "", message: "" });
+      setFormData({
+        name: "",
+        designation: "",
+        company: "",
+        message: "",
+        publication_consent: false,
+      });
     } catch (err) {
       setSubmissionStatus(
         typeof err === "string" ? err : err.message || "Could not submit your review. Please try again.",
@@ -143,6 +155,20 @@ const Testimonial = () => {
                 maxLength={2000}
                 required
               />
+            </label>
+            <label className="flex items-start gap-2 text-sm font-normal text-gray-600 sm:col-span-2">
+              <input
+                type="checkbox"
+                name="publication_consent"
+                className="checkbox checkbox-primary mt-1"
+                checked={formData.publication_consent}
+                onChange={handleChange}
+                required
+              />
+              <span>
+                I agree that my review and the name and role/company I provided may be published after approval. I have read the{" "}
+                <Link className="underline" to="/policies#privacy-policy">Privacy Policy</Link>.
+              </span>
             </label>
           </div>
           <div className="mt-5 text-center">

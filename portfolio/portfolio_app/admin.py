@@ -5,7 +5,7 @@ from .models import Contact, Portfolio, Blog, Testimonial, Skill, Experience, Ab
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-	list_display = ('name', 'email', 'created_at')
+	list_display = ('name', 'email', 'privacy_consent', 'created_at')
 
 
 @admin.register(Portfolio)
@@ -42,7 +42,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 @admin.register(Testimonial)
 class TestimonialAdmin(admin.ModelAdmin):
-	list_display = ('name', 'company', 'is_approved')
+	list_display = ('name', 'company', 'publication_consent', 'is_approved')
 	list_filter = ('is_approved',)
 	list_editable = ('is_approved',)
 

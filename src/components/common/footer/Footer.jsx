@@ -1,4 +1,5 @@
 // import logo from "../../../assets/logo.png";
+import { Link } from "react-router-dom";
 
 /* Footer nabLinks */
 const navItems = [
@@ -47,6 +48,11 @@ const Footer = () => {
           Chiderah
         </a>
       </p>
+      <nav aria-label="Legal policies" className="flex flex-wrap justify-center gap-5 pb-8 text-sm text-neutral-300">
+        <Link className="underline hover:text-white" to="/policies#privacy-policy">Privacy Policy</Link>
+        <Link className="underline hover:text-white" to="/policies#cookie-policy">Cookie Policy</Link>
+        <Link className="underline hover:text-white" to="/policies#terms-of-use">Terms of Use</Link>
+      </nav>
     </div>
   );
 };

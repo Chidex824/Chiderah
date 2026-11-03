@@ -5,6 +5,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from .models import Portfolio, Testimonial
 from .serializers import BlogSerializer, PortfolioSerializer
 from .models import Blog
+from .models import Contact
 
 
 class PortfolioImageUploadTests(TestCase):
@@ -80,12 +81,15 @@ class PublicTestimonialTests(TestCase):
 				'name': 'A client',
 				'message': 'Great work!',
 				'is_approved': True,
+				'publication_consent': True,
 			},
 			format='json',
 		)
 
 		self.assertEqual(response.status_code, 201)
-		self.assertFalse(Testimonial.objects.get(name='A client').is_approved)
+		submitted = Testimonial.objects.get(name='A client')
+		self.assertFalse(submitted.is_approved)
+		self.assertTrue(submitted.publication_consent)
 		self.assertEqual(response.data['detail'], 'Thanks! Your review was submitted for approval.')
 		self.assertEqual(self.client.get(self.url).data, [])
 
@@ -99,7 +103,11 @@ class PublicTestimonialTests(TestCase):
 		self.assertEqual([item['name'] for item in response.data], ['Published'])
 
 	def test_submission_is_rate_limited(self):
-		payload = {'name': 'A client', 'message': 'Great work!'}
+		payload = {
+			'name': 'A client',
+			'message': 'Great work!',
+			'publication_consent': True,
+		}
 		for _ in range(5):
 			self.assertEqual(
 				self.client.post(self.url, payload, format='json').status_code,
@@ -109,3 +117,42 @@ class PublicTestimonialTests(TestCase):
 		response = self.client.post(self.url, payload, format='json')
 
 		self.assertEqual(response.status_code, 429)
+
+	def test_submission_requires_publication_consent(self):
+		response = self.client.post(
+			self.url,
+			{'name': 'A client', 'message': 'Great work!', 'publication_consent': False},
+			format='json',
+		)
+
+		self.assertEqual(response.status_code, 400)
+		self.assertFalse(Testimonial.objects.exists())
+
+
+class ContactPrivacyConsentTests(TestCase):
+	def setUp(self):
+		self.client = APIClient()
+		self.url = '/api/contact/'
+		self.payload = {
+			'name': 'A client',
+			'email': 'client@example.com',
+			'location': 'Enugu',
+			'budget': '100',
+			'subject': 'Project inquiry',
+			'message': 'Please contact me about this project.',
+		}
+
+	def test_contact_submission_requires_privacy_consent(self):
+		response = self.client.post(self.url, self.payload, format='json')
+
+		self.assertEqual(response.status_code, 400)
+		self.assertIn('privacy_consent', response.data)
+		self.assertFalse(Contact.objects.exists())
+
+	def test_contact_submission_saves_privacy_consent(self):
+		payload = {**self.payload, 'privacy_consent': True}
+
+		response = self.client.post(self.url, payload, format='json')
+
+		self.assertEqual(response.status_code, 201)
+		self.assertTrue(Contact.objects.get().privacy_consent)
