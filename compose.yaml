@@ -1,6 +1,6 @@
 services:
   chiderahportfolio:
-    image: chiderahportfolio
+    image: chiderah
     build:
       context: .
       dockerfile: ./Dockerfile
