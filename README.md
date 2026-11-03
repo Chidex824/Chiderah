@@ -85,6 +85,14 @@ VITE_API_BASE_URL=http://localhost:8000/api
 
 Migrations create the schema but do not copy existing records from SQLite to Neon.
 
+### Upload portfolio images with Cloudinary
+
+1. Create a Cloudinary account and copy its `CLOUDINARY_URL` from the dashboard.
+2. Add `CLOUDINARY_URL` as an environment variable in Vercel (and locally if you want uploads to go directly to Cloudinary). Do not commit the value.
+3. Run migrations, open `/admin/`, and upload an image in a Portfolio record. The public API continues to return the image as a URL; existing portfolio image URLs are preserved.
+
+For local development without Cloudinary credentials, uploaded files use `portfolio/media/` and are served by Django while `DEBUG=True`. Vercel requires Cloudinary because its local filesystem is not persistent.
+
 ### CORS Configuration
 
 Ensure your Django backend has CORS configured to allow requests from your React development server:

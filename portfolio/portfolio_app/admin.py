@@ -10,6 +10,7 @@ class ContactAdmin(admin.ModelAdmin):
 @admin.register(Portfolio)
 class PortfolioAdmin(admin.ModelAdmin):
 	list_display = ('title', 'category', 'created_at')
+	readonly_fields = ('legacy_image_url',)
 
 
 @admin.register(Blog)

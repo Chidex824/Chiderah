@@ -23,7 +23,8 @@ class Portfolio(models.Model):
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	title = models.CharField(max_length=255)
 	description = models.TextField(blank=True)
-	image = models.URLField(blank=True)
+	image = models.ImageField(upload_to='portfolio/', blank=True, max_length=2048)
+	legacy_image_url = models.URLField(blank=True, editable=False, max_length=2048)
 	category = models.CharField(max_length=100, blank=True)
 	link = models.URLField(blank=True)
 	created_at = models.DateTimeField(auto_now_add=True)
@@ -89,4 +90,3 @@ class About(models.Model):
 
 	def __str__(self):
 		return f"About: {self.name}"
-

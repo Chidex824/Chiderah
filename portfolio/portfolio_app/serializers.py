@@ -9,9 +9,21 @@ class ContactSerializer(serializers.ModelSerializer):
 
 
 class PortfolioSerializer(serializers.ModelSerializer):
+	image = serializers.SerializerMethodField()
+
 	class Meta:
 		model = Portfolio
-		fields = '__all__'
+		fields = ('id', 'title', 'description', 'image', 'category', 'link', 'created_at')
+
+	def get_image(self, instance):
+		image_name = instance.image.name or ''
+		if image_name.lower().startswith(('http://', 'https://')):
+			return image_name
+		if image_name:
+			image_url = instance.image.url
+			request = self.context.get('request')
+			return request.build_absolute_uri(image_url) if request else image_url
+		return instance.legacy_image_url or ''
 
 
 class BlogSerializer(serializers.ModelSerializer):
