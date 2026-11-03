@@ -143,8 +143,7 @@ export const securityHeaders = {
 // Environment validation
 export const validateEnvironment = () => {
   const requiredEnvVars = [
-    'VITE_API_BASE_URL',
-    'VITE_REPO_NAME'
+    'VITE_API_BASE_URL'
   ];
 
   const missingVars = requiredEnvVars.filter(varName => !import.meta.env[varName]);
@@ -156,7 +155,7 @@ export const validateEnvironment = () => {
 
   // Validate API URL format
   try {
-    const apiUrl = new URL(import.meta.env.VITE_API_BASE_URL);
+    const apiUrl = new URL(import.meta.env.VITE_API_BASE_URL, window.location.origin);
     if (!['http:', 'https:'].includes(apiUrl.protocol)) {
       throw new Error('Invalid API URL protocol');
     }
