@@ -17,8 +17,5 @@
         "service": "app"
       }
     }
-  ],
-  "bindings": [
-    { "type": "service", "service": "inventory", "format": "url", "env": "INVENTORY_URL" }
-  ]
+    ]
 }
