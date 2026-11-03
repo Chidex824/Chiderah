@@ -27,15 +27,52 @@ class PortfolioSerializer(serializers.ModelSerializer):
 
 
 class BlogSerializer(serializers.ModelSerializer):
+	image = serializers.SerializerMethodField()
+
 	class Meta:
 		model = Blog
-		fields = '__all__'
+		fields = (
+			'id',
+			'title',
+			'content',
+			'image',
+			'created_at',
+			'slug',
+			'comments_count',
+		)
+
+	def get_image(self, instance):
+		image_name = instance.image.name or ''
+		if image_name.lower().startswith(('http://', 'https://')):
+			return image_name
+		if image_name:
+			image_url = instance.image.url
+			request = self.context.get('request')
+			return request.build_absolute_uri(image_url) if request else image_url
+		return instance.legacy_image_url or ''
 
 
 class TestimonialSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Testimonial
-		fields = '__all__'
+		fields = (
+			'id',
+			'name',
+			'message',
+			'designation',
+			'company',
+			'image',
+			'is_approved',
+		)
+		read_only_fields = ('is_approved',)
+
+
+class TestimonialSubmissionSerializer(serializers.ModelSerializer):
+	message = serializers.CharField(max_length=2000, trim_whitespace=True)
+
+	class Meta:
+		model = Testimonial
+		fields = ('name', 'message', 'designation', 'company')
 
 
 class SkillSerializer(serializers.ModelSerializer):

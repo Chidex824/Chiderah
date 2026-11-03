@@ -15,7 +15,7 @@ const Portfolio = () => {
         // Transform Django API response to match your component's expected format
         const transformedData = data.map(item => ({
           id: item.id,
-          image: item.image ? `${import.meta.env.VITE_API_BASE_URL.replace('/api', '')}${item.image}` : '', // Assuming image is a relative URL
+          image: item.image || '',
           category: item.category || 'UI-UX DESIGN', // Adjust based on your model fields
           title: item.title,
           description: item.description,

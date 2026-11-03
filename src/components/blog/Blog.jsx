@@ -36,7 +36,7 @@ const Blog = () => {
         // Transform Django API response to match your component's expected format
         const transformedData = data.map(item => ({
           id: item.id,
-          image: item.image ? `${import.meta.env.VITE_API_BASE_URL.replace('/api', '')}${item.image}` : '',
+          image: item.image || '',
           date: item.created_at ? new Date(item.created_at).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'short',

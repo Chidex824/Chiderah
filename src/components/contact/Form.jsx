@@ -243,6 +243,7 @@ const Form = () => {
             )}
           </div>
           <button
+            link
             type="submit"
             disabled={isSubmitting}
             className="btn gap-3 max-lg:mx-auto btn-primary rounded-sm mt-5 text-[13px] md:text-[16px] w-fit font-semibold lg:mt-12.5 p-2 md:px-4 disabled:opacity-50"

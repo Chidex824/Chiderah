@@ -5,7 +5,6 @@ import Portfolio from "../components/portfolio/Portfolio";
 import WorkTogether from "../components/workTogether/WorkTogether";
 import Blog from "../components/blog/Blog";
 import Profession from "../components/profession/Profession";
-import HappyClients from "../components/happyClients/HappyClients";
 import Testimonial from "../components/testimonial/Testimonial";
 import Contact from "../components/contact/Contact";
 import Experience from "../components/Experience/Experience";
@@ -34,7 +33,6 @@ const Home = () => {
       <div className="bg-soft-white">
         <Profession />
       </div>
-      <HappyClients />
       <Testimonial />
       <Contact />
     </div>

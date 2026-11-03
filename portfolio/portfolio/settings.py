@@ -94,6 +94,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_RATES': {
+        'testimonial_submission': '5/hour',
+    },
+}
+
 # Allow all origins for development (restrict in production)
 CORS_ALLOW_ALL_ORIGINS = True
 

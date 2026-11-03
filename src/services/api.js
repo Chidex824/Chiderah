@@ -158,6 +158,15 @@ export const apiService = {
     }
   },
 
+  submitTestimonial: async (review) => {
+    try {
+      const response = await api.post('/testimonials/', review);
+      return response.data;
+    } catch (error) {
+      throw error.response?.data?.detail || error.message;
+    }
+  },
+
   // Skills/Technologies
   getSkills: async () => {
     try {

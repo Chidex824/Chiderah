@@ -37,7 +37,8 @@ class Blog(models.Model):
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	title = models.CharField(max_length=255)
 	content = models.TextField()
-	image = models.URLField(blank=True)
+	image = models.ImageField(upload_to='blogs/', blank=True, max_length=2048)
+	legacy_image_url = models.URLField(blank=True, editable=False, max_length=2048)
 	created_at = models.DateTimeField(auto_now_add=True)
 	slug = models.SlugField(max_length=255, unique=True)
 	comments_count = models.IntegerField(default=0)
@@ -53,6 +54,7 @@ class Testimonial(models.Model):
 	designation = models.CharField(max_length=200, blank=True)
 	company = models.CharField(max_length=200, blank=True)
 	image = models.URLField(blank=True)
+	is_approved = models.BooleanField(default=False)
 
 	def __str__(self):
 		return f"{self.name} - {self.company}"

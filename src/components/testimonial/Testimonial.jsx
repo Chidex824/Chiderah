@@ -14,45 +14,27 @@ const Testimonial = () => {
   const [testimonialData, setTestimonialData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    designation: "",
+    company: "",
+    message: "",
+  });
+  const [submissionStatus, setSubmissionStatus] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
         const data = await apiService.getTestimonials();
-        // Transform Django API response to match your component's expected format
         const transformedData = data.map(item => ({
-          message: item.message || item.content,
-          quote: item.quote || item.full_message || item.message,
-          name: item.name || item.client_name,
-          designation: item.designation || item.position || `${item.company ? `, ${item.company}` : ''}`,
+          message: item.message,
+          name: item.name,
+          designation: [item.designation, item.company].filter(Boolean).join(", "),
         }));
         setTestimonialData(transformedData);
       } catch (err) {
         setError(err.message || 'Failed to load testimonials');
-        // Fallback to static data if API fails
-        setTestimonialData([
-          {
-            message:
-              "Working with this young man was a fantastic experience. His attention to detail and commitment to quality exceeded our expectations.",
-            quote: `From the initial consultation to the final delivery, every step was handled professionally. The end result was a product that not only met our needs but also impressed our stakeholders. Highly recommended!`,
-            name: "Esther Howard",
-            designation: "Managing Director, ABC Company",
-          },
-          {
-            message:
-              "His expertise in UI/UX design helped us transform our digital presence and improve user engagement.",
-            quote: `He demonstrated a deep understanding of our requirements and delivered a solution that was both visually appealing and highly functional. Communication was clear throughout the project.`,
-            name: "Ali Haider",
-            designation: "COO, XYZ Company",
-          },
-          {
-            message:
-              "Professional, reliable, and creative—everything you want in a development partner.",
-            quote: `He delivered our project on time and went above and beyond to ensure our satisfaction. The new features have made a significant difference for our users. We look forward to working together again.`,
-            name: "Elon Max",
-            designation: "Managing Director, KFC Company",
-          },
-        ]);
       } finally {
         setLoading(false);
       }
@@ -60,6 +42,28 @@ const Testimonial = () => {
 
     fetchTestimonials();
   }, []);
+
+  const handleChange = (event) => {
+    setFormData((current) => ({ ...current, [event.target.name]: event.target.value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setSubmitting(true);
+    setSubmissionStatus("");
+
+    try {
+      const response = await apiService.submitTestimonial(formData);
+      setSubmissionStatus(response.detail);
+      setFormData({ name: "", designation: "", company: "", message: "" });
+    } catch (err) {
+      setSubmissionStatus(
+        typeof err === "string" ? err : err.message || "Could not submit your review. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -69,19 +73,14 @@ const Testimonial = () => {
     );
   }
 
-  if (error && testimonialData.length === 0) {
-    return (
-      <div className="flex mx-auto justify-center px-2 max-w-218 pb-10 md:pb-25">
-        <div className="text-center">
-          <p>Error loading testimonials: {error}</p>
-        </div>
-      </div>
-    );
-  }
   return (
     <div className="flex mx-auto justify-center px-2 max-w-218 pb-10 md:pb-25">
       <div className="w-full h-full cursor-grab">
-        <p className="section-title mb-6 text-center">Testimonial</p>
+        <p className="section-title mb-6 text-center">Testimonials</p>
+        {error ? <p className="mb-6 text-center text-red-600">Could not load reviews right now.</p> : null}
+        {testimonialData.length === 0 ? (
+          <p className="mb-8 text-center text-gray-500">No reviews yet. Be the first to share your experience.</p>
+        ) : null}
         <Swiper
           id="testimonialSwiper"
           spaceBetween={30}
@@ -97,6 +96,64 @@ const Testimonial = () => {
             </SwiperSlide>
           ))}
         </Swiper>
+        <form onSubmit={handleSubmit} className="mx-auto mt-12 max-w-2xl rounded-lg bg-white p-6 shadow-sm">
+          <h3 className="mb-5 text-center text-xl font-semibold">Share your experience</h3>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="flex flex-col gap-1 text-sm font-medium">
+              Your name
+              <input
+                className="rounded border border-gray-300 p-3"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                maxLength={200}
+                autoComplete="name"
+                required
+              />
+            </label>
+            <label className="flex flex-col gap-1 text-sm font-medium">
+              Role (optional)
+              <input
+                className="rounded border border-gray-300 p-3"
+                name="designation"
+                value={formData.designation}
+                onChange={handleChange}
+                maxLength={200}
+                autoComplete="organization-title"
+              />
+            </label>
+            <label className="flex flex-col gap-1 text-sm font-medium sm:col-span-2">
+              Company (optional)
+              <input
+                className="rounded border border-gray-300 p-3"
+                name="company"
+                value={formData.company}
+                onChange={handleChange}
+                maxLength={200}
+                autoComplete="organization"
+              />
+            </label>
+            <label className="flex flex-col gap-1 text-sm font-medium sm:col-span-2">
+              Your review
+              <textarea
+                className="min-h-32 rounded border border-gray-300 p-3"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                maxLength={2000}
+                required
+              />
+            </label>
+          </div>
+          <div className="mt-5 text-center">
+            <button type="submit" className="btn btn-primary" disabled={submitting}>
+              {submitting ? "Submitting..." : "Submit review"}
+            </button>
+            {submissionStatus ? (
+              <p className="mt-3 text-sm text-gray-600" role="status">{submissionStatus}</p>
+            ) : null}
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -1,7 +1,10 @@
 from django.test import TestCase
+from django.core.cache import cache
+from rest_framework.test import APIClient
 from django.core.files.uploadedfile import SimpleUploadedFile
-from .models import Portfolio
-from .serializers import PortfolioSerializer
+from .models import Portfolio, Testimonial
+from .serializers import BlogSerializer, PortfolioSerializer
+from .models import Blog
 
 
 class PortfolioImageUploadTests(TestCase):
@@ -20,6 +23,26 @@ class PortfolioImageUploadTests(TestCase):
 
 		self.assertEqual(portfolio.image.name, 'portfolio.png')
 
+	def test_blog_accepts_uploaded_image(self):
+		image = SimpleUploadedFile(
+			'blog.png',
+			bytes.fromhex(
+				'89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c489'
+				'0000000b49444154789c636000020000050001a5f645400000000049454e44ae426082'
+			),
+			content_type='image/png',
+		)
+		blog = Blog(
+			title='Uploaded post',
+			content='Post content',
+			slug='uploaded-post',
+			image=image,
+		)
+
+		blog.full_clean()
+
+		self.assertEqual(blog.image.name, 'blog.png')
+
 	def test_serializer_keeps_existing_external_image_url(self):
 		image_url = 'https://example.com/portfolio.png'
 		portfolio = Portfolio(
@@ -31,3 +54,58 @@ class PortfolioImageUploadTests(TestCase):
 			PortfolioSerializer(portfolio).data['image'],
 			image_url,
 		)
+
+	def test_blog_serializer_keeps_existing_external_image_url(self):
+		image_url = 'https://example.com/blog-cover.jpg'
+		blog = Blog(
+			title='Existing post',
+			content='Post content',
+			slug='existing-post',
+			legacy_image_url=image_url,
+		)
+
+		self.assertEqual(BlogSerializer(blog).data['image'], image_url)
+
+
+class PublicTestimonialTests(TestCase):
+	def setUp(self):
+		cache.clear()
+		self.client = APIClient()
+		self.url = '/api/testimonials/'
+
+	def test_submitted_testimonial_waits_for_approval(self):
+		response = self.client.post(
+			self.url,
+			{
+				'name': 'A client',
+				'message': 'Great work!',
+				'is_approved': True,
+			},
+			format='json',
+		)
+
+		self.assertEqual(response.status_code, 201)
+		self.assertFalse(Testimonial.objects.get(name='A client').is_approved)
+		self.assertEqual(response.data['detail'], 'Thanks! Your review was submitted for approval.')
+		self.assertEqual(self.client.get(self.url).data, [])
+
+	def test_public_list_contains_only_approved_testimonials(self):
+		Testimonial.objects.create(name='Published', message='Approved', is_approved=True)
+		Testimonial.objects.create(name='Pending', message='Awaiting review')
+
+		response = self.client.get(self.url)
+
+		self.assertEqual(response.status_code, 200)
+		self.assertEqual([item['name'] for item in response.data], ['Published'])
+
+	def test_submission_is_rate_limited(self):
+		payload = {'name': 'A client', 'message': 'Great work!'}
+		for _ in range(5):
+			self.assertEqual(
+				self.client.post(self.url, payload, format='json').status_code,
+				201,
+			)
+
+		response = self.client.post(self.url, payload, format='json')
+
+		self.assertEqual(response.status_code, 429)
