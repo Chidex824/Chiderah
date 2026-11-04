@@ -9,10 +9,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const socialIcons = [
-  { icon: faFacebookF, link: "#!" },
-  { icon: faInstagram, link: "#!" },
-  { icon: faLinkedin, link: "#!" },
-  { icon: faWhatsapp, link: "#!" },
+  { icon: faFacebookF, link: "https://www.facebook.com/kingchidex" },
+  { icon: faInstagram, link: "https://www.instagram.com/realkingchidex" },
+  { icon: faLinkedin, link: "https://www.linkedin.com/in/ugwu-chiderah-428927402" },
+  { icon: faWhatsapp, link: "https://wa.me/+2348050347869" },
 ];
 
 const SocialMedia = () => {

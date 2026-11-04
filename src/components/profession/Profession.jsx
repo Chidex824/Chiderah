@@ -7,6 +7,55 @@ const rolesData = [
     description:
       "I build responsive and high-performance web applications using modern technologies, ensuring accessibility, scalability, and maintainability.",
   },
+
+  {
+    id: 2,
+    title: "Mobile App Development",
+    description:
+      "I create cross-platform mobile applications using frameworks like React Native and flutter, providing seamless user experiences on both iOS and Android devices.",
+  },
+  {
+    id: 3,
+    title: "UI/UX Design",
+    description:
+      "I create user-friendly and visually appealing designs that enhance the user experience and meet the needs of my clients.",
+  },
+  {
+    id: 4,
+    title: "Backend Development",
+    description:
+      "I develop robust backend systems using technologies like Node.js, Python, and Django, ensuring seamless functionality and data management.",
+  },
+  {
+    id: 5,
+    title: "API Development",
+    description:
+      "I design and implement RESTful APIs that enable smooth communication between frontend and backend systems.",
+  },
+  {
+    id: 6,
+    title: "Database Management",
+    description:
+      "I manage databases using PostgreSQL, ensuring data integrity, security, and efficient data retrieval.",
+  },
+  {
+    id: 7,
+    title: "Version Control",
+    description:
+      "I use Git for version control, enabling efficient collaboration and code management in development projects.",
+  },
+  {
+    id: 8,
+    title: "Testing and Debugging",
+    description:
+      "I perform thorough testing and debugging to ensure the reliability and performance of web applications.",
+  },
+  {
+    id: 9,
+    title: "Deployment and Hosting",
+    description:
+      "I deploy web applications to hosting platforms, ensuring they are accessible and performant for end-users.",
+  },
 ];
 
 const Profession = () => {

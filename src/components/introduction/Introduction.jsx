@@ -93,7 +93,7 @@ const Introduction = () => {
               className="btn-primary btn btn-xs xxs:btn-lg text-white"
               href={`mailto:${aboutData?.email || "ugwuchiderahwilliams@gmail.com"}`}
             >
-              Say Hello!
+              Let's Discuss Your Project
             </a>
           </p>
         </div>
