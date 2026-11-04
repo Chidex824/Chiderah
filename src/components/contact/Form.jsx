@@ -30,7 +30,7 @@ const Form = () => {
     message: '',
     privacy_consent: false,
   });
-  const [isSubmitting, setIsSubmitting] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
   const [fieldErrors, setFieldErrors] = useState({});
 
@@ -205,8 +205,8 @@ const Form = () => {
             )}
           </div>
 
-          <div className="flex max-xs:flex-col max-xs:gap-4">
-            <div className="flex-1 xs:w-[50%] me-5">
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="min-w-0 flex-1">
               <input
                 type="text"
                 name="budget"
@@ -221,7 +221,7 @@ const Form = () => {
               )}
             </div>
 
-            <div className="flex-1">
+            <div className="min-w-0 flex-1">
               <input
                 type="text"
                 name="subject"
@@ -280,13 +280,18 @@ const Form = () => {
             link
             type="submit"
             disabled={isSubmitting}
+            aria-busy={isSubmitting}
             className="btn gap-3 max-lg:mx-auto btn-primary rounded-sm mt-5 text-[13px] md:text-[16px] w-fit font-semibold lg:mt-12.5 p-2 md:px-4 disabled:opacity-50"
           >
             {isSubmitting ? 'Submitting...' : 'Submit'} {telegramSVG}
           </button>
         </form>
         {submitMessage && (
-          <p className={`mt-4 text-center ${submitMessage.includes('Thank you') ? 'text-green-600' : 'text-red-600'}`}>
+          <p
+            role={submitMessage.includes('Thank you') ? 'status' : 'alert'}
+            aria-live={submitMessage.includes('Thank you') ? 'polite' : 'assertive'}
+            className={`mt-4 text-center ${submitMessage.includes('Thank you') ? 'text-green-600' : 'text-red-600'}`}
+          >
             {submitMessage}
           </p>
         )}

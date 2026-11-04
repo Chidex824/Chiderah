@@ -8,7 +8,7 @@ import Profession from "../components/profession/Profession";
 import Testimonial from "../components/testimonial/Testimonial";
 import Contact from "../components/contact/Contact";
 import Experience from "../components/Experience/Experience";
-import skills from "../components/skills/skills";
+import Skills from "../components/skills/skills";
 import "../../index.css";
 
 const Home = () => {
@@ -18,6 +18,8 @@ const Home = () => {
         <div className="content">
           <Introduction />
           <Profile />
+          <Experience />
+          <Skills />
         </div>
       </div>
       <div className="bg-soft-white pt-30">

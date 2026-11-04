@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.chiderah-lwdc.vercel.app/sitemap.xml
