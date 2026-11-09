@@ -92,6 +92,8 @@ TEMPLATES = [
     },
 ]
 
+DJANGO_ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'chiderah-lwdc.vercel.app,www.chiderah-lwdc.vercel.app').split(',')
+
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 REST_FRAMEWORK = {
