@@ -1,7 +1,11 @@
+import React from 'react'
+
+
+
 const Skills = () => {
   return (
-    <div className='skills'>
-      <h1>My Skills</h1>
+    <div className='skills container   text-center mx-auto py-10 px-4'>
+      <h1 id='skills'>My Skills</h1>
       <p>Here are some of my technical skills:</p>
       <ul>
         <li>JavaScript</li>
