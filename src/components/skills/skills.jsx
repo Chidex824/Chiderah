@@ -4,9 +4,9 @@ import React from 'react'
 
 const Skills = () => {
   return (
-    <div className='skills container   text-center mx-auto py-10 px-4'>
-      <h1 id='skills'>My Skills</h1>
-      <p>Here are some of my technical skills:</p>
+    <div className='skills container   text-center mx-auto py-10 px-4 col-span-12 md:col-span-6 lg:col-span-4 color-black font-bold'>
+      <h1 id='skills font-30px'>My Skills</h1>
+      <p id=''>Here are some of my technical skills:</p>
       <ul>
         <li>JavaScript</li>
         <li>React</li>
