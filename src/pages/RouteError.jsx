@@ -8,7 +8,10 @@ const RouteError = () => {
       : "This page could not be loaded. Please try again.";
 
   return (
-    <main className="content mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center px-4 py-20 text-center">
+    <main
+      className="content mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center bg-white px-4 py-20 text-center text-[#132238]"
+      data-theme="light"
+    >
       <h1 className="text-3xl font-semibold text-[#132238]">
         Something went wrong
       </h1>

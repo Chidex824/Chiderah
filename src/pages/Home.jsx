@@ -18,6 +18,10 @@ const Home = () => {
         <div className="content">
           <Introduction />
           <Profile />
+        </div>
+      </div>
+      <div className="bg-soft-white px-4 pb-16 pt-28 md:pt-36">
+        <div className="content space-y-10">
           <Experience />
           <Skills />
         </div>
