@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import person from "../../assets/images/person.png";
+import person from "../../assets/images/chidexgit.png";
 import "./introduction.css";
 import InformationSummary from "./InformationSummary";
 import { apiService } from "../../services/api";

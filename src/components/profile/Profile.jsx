@@ -1,4 +1,4 @@
-import person from "../../assets/images/person2.png";
+import person from "../../assets/images/chidexgit.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import SocialMedia from "../common/socialMedia/SocialMedia";
@@ -15,7 +15,7 @@ const Profile = () => {
           <div className="max-w-106 h-117 object-fill overflow-hidden rounded-xl">
             <img
               className="bg-soft-white h-[120%] object-cover"
-              src={person}
+              src={chidexgit}
               alt=""
             />
           </div>
