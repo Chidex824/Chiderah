@@ -52,17 +52,17 @@ const Experience = () => {
         </p>
       </div>
 
-      <div className='max-w-169 mx-auto'>
-        <h1>
-          <span className='text-[#132238] font-semibold'>Company Name:</span> E-Double One Inc
+      <div className='max-w-169 mx-auto card'>
+        <h1 className='card-body'>
+          <span className='card-text-[#132238] font-semibold'>Company Name:</span> E-Double One Inc
         </h1>
-        <p className='text-[#A5ACB5] text-xs sm:text-lg font-normal text-center pb-8'>
+        <p className='text-[#A5ACB5] text-xs sm:text-lg font-normal text-start pb-8'>
           <span className='text-[#132238] font-semibold'>Role:</span> Backend Developer Intern
         </p>
-        <p className='text-[#A5ACB5] text-xs sm:text-lg font-normal text-center pb-8'>
+        <p className='text-[#A5ACB5] text-xs sm:text-lg font-normal text-start pb-8'>
           <span className='text-[#132238] font-semibold'>Duration:</span> July 2026 - October 2026
         </p>
-        <p className='text-[#A5ACB5] text-xs sm:text-lg font-normal text-center pb-8'>
+        <p className='text-[#A5ACB5] text-xs sm:text-lg font-normal text-start pb-8'>
           <span className='text-[#132238] font-semibold'>Responsibilities:</span>
           Assisting in the design of the new edtech platform, learning Git collaborations through CI/CD, creating my own branch, making PRs.
         </p>
