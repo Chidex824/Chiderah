@@ -36,7 +36,13 @@ Your Django backend should provide the following API endpoints:
 
 #### Contact Form
 - `POST /api/contact/` - Submit contact form data
-- Expected payload: `{name, email, location, budget, subject, message}`
+- Expected payload: `{name, email, location, budget, subject, message, privacy_consent}`
+
+#### AI Chat Support
+- `POST /api/chat/` - Send a short conversation to the server-side OpenAI integration
+- Expected payload: `{messages: [{role: "user" | "assistant", content: string}]}`
+- Set `OPENAI_API_KEY` in the Django/Vercel environment. The key must never be exposed in a `VITE_*` variable or frontend code. `OPENAI_CHAT_MODEL` is optional and defaults to `gpt-4o-mini`.
+- Visitors must consent before chat messages are sent to OpenAI. Conversation history is not persisted by the site; a visitor can separately submit an inquiry through the contact endpoint and then choose to open WhatsApp with a project summary.
 
 #### Portfolio/Projects
 - `GET /api/portfolios/` - Fetch all portfolio projects
@@ -74,6 +80,8 @@ VITE_API_BASE_URL=http://localhost:8000/api
 
 1. Create a Neon project and database, then copy its PostgreSQL connection string from the Neon dashboard. Use the pooled connection string for a serverless deployment, and keep its `sslmode=require` parameter.
 2. In the Vercel project's **Settings → Environment Variables**, set `DATABASE_URL` to the Neon connection string, `VITE_API_BASE_URL` to `/api`, and `DJANGO_SECRET_KEY` to a newly generated secret. Generate one with `python -c "import secrets; print(secrets.token_urlsafe(50))"`. Set `DJANGO_ALLOWED_HOSTS` to any custom domains, comma-separated; Vercel's deployment hostname is added automatically. Django defaults to `DEBUG=False` on Vercel. Add these variables to the environments you deploy (for example, Production), then redeploy. Keep secrets out of source control. The Vercel rewrites send `/api/` requests to Django and other requests to the frontend.
+   To enable chat support, also set `OPENAI_API_KEY` as a server-side Vercel environment variable. Optionally set `OPENAI_CHAT_MODEL` to a model available to your OpenAI account. Never place the API key in a `VITE_*` variable. Redeploy after setting these values. For local Django development, set `OPENAI_API_KEY` in the shell before starting the backend.
+   In PowerShell, for example: `$env:OPENAI_API_KEY = "your-key"; python portfolio\manage.py runserver`. Use a real key only in your local shell or deployment environment, never in source control.
 3. Apply Django migrations to create the tables. In PowerShell, from the repository root:
 
    ```powershell

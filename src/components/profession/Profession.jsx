@@ -1,96 +1,123 @@
-import Roles from "./Roles";
+import webAppImage from "../../assets/images/services/web-app.svg";
+import productDesignImage from "../../assets/images/services/product-design.svg";
+import mobileImage from "../../assets/images/services/mobile-app.svg";
+import backendImage from "../../assets/images/services/backend-api.svg";
+import databaseImage from "../../assets/images/services/database.svg";
+import deliveryImage from "../../assets/images/services/delivery.svg";
 
-const rolesData = [
+const services = [
   {
-    id: 1,
-    title: "Web Development",
+    title: "Web Application Development",
     description:
-      "I build responsive and high-performance web applications using modern technologies, ensuring accessibility, scalability, and maintainability.",
-  },
-
-  {
-    id: 2,
-    title: "Mobile App Development",
-    description:
-      "I create cross-platform mobile applications using frameworks like React Native and flutter, providing seamless user experiences on both iOS and Android devices.",
+      "Responsive, accessible web experiences built with React and modern frontend tools, connected to reliable backend services.",
+    image: webAppImage,
+    imageAlt: "Illustration of a responsive web application interface",
+    category: "Frontend",
   },
   {
-    id: 3,
     title: "UI/UX Design",
     description:
-      "I create user-friendly and visually appealing designs that enhance the user experience and meet the needs of my clients.",
+      "Clear layouts and thoughtful user journeys that make digital products easier and more enjoyable to use.",
+    image: productDesignImage,
+    imageAlt: "Illustration of a digital product design workspace",
+    category: "Product design",
   },
   {
-    id: 4,
-    title: "Backend Development",
+    title: "Mobile App Development",
     description:
-      "I develop robust backend systems using technologies like Node.js, Python, and Django, ensuring seamless functionality and data management.",
+      "Cross-platform mobile experiences designed to feel intuitive and work smoothly across devices.",
+    image: mobileImage,
+    imageAlt: "Illustration of a mobile application on a phone",
+    category: "Mobile",
   },
   {
-    id: 5,
-    title: "API Development",
+    title: "Backend & API Development",
     description:
-      "I design and implement RESTful APIs that enable smooth communication between frontend and backend systems.",
+      "Server-side features and REST APIs that connect applications, handle business logic, and move data reliably.",
+    image: backendImage,
+    imageAlt: "Illustration of an API connecting application services",
+    category: "Backend",
   },
   {
-    id: 6,
-    title: "Database Management",
+    title: "Database Design",
     description:
-      "I manage databases using PostgreSQL, ensuring data integrity, security, and efficient data retrieval.",
+      "Well-structured PostgreSQL data models designed for consistency, maintainability, and efficient access.",
+    image: databaseImage,
+    imageAlt: "Illustration of organized database tables",
+    category: "Data",
   },
   {
-    id: 7,
-    title: "Version Control",
+    title: "Testing & Deployment",
     description:
-      "I use Git for version control, enabling efficient collaboration and code management in development projects.",
-  },
-  {
-    id: 8,
-    title: "Testing and Debugging",
-    description:
-      "I perform thorough testing and debugging to ensure the reliability and performance of web applications.",
-  },
-  {
-    id: 9,
-    title: "Deployment and Hosting",
-    description:
-      "I deploy web applications to hosting platforms, ensuring they are accessible and performant for end-users.",
+      "Practical testing, debugging, version control, and deployment workflows to help applications ship with confidence.",
+    image: deliveryImage,
+    imageAlt: "Illustration of a software deployment workflow",
+    category: "Delivery",
   },
 ];
 
-const Profession = () => {
-  return (
-    <div
-      className="content grid md:grid-cols-2 max-xxl:px-4 xxl:px-2 py-10 md:py-15 lg:py-37.5"
-      id="services"
-    >
-      <div className="flex flex-col justify-between h-fit md:pe-8 lg:pe-35.75 max-md:text-center my-auto">
-        <p className="section-title max-md:text-center">What I do?</p>
-        <div className="mt-6 text-[14px]">
-          <p className="text-xs sm:text-lg font-normal text-gray-400 mb-4">
-            I specialize in building responsive and high-performance web applications using modern technologies, 
-            ensuring accessibility, scalability, and maintainability.
-          </p>
-          <p className="text-xs sm:text-lg font-normal text-gray-400">
-            My approach combines creativity and technical expertise to deliver
-            solutions that are both visually appealing and highly functional for
-            users.
-          </p>
-        </div>
-        <a
-          href="#!"
-          className="mt-5 md:mt-12.5 btn btn-primary text-white w-fit md:py-3 md:px-6 text-[12px] sm:text-[16px] font-semibold max-md:mx-auto max-md:mb-5"
+const Profession = () => (
+  <section
+    aria-labelledby="services-heading"
+    className="content px-4 py-16 sm:py-20 lg:py-28"
+    id="services"
+  >
+    <header className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
+      <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-picto-primary">
+        Services
+      </p>
+      <h2
+        className="text-3xl font-semibold text-[#132238] sm:text-4xl md:text-5xl"
+        id="services-heading"
+      >
+        What I can help you build
+      </h2>
+      <p className="mt-4 text-sm leading-7 text-[#697586] sm:text-base">
+        From product interfaces to backend systems, I help turn ideas into
+        useful, polished digital experiences.
+      </p>
+    </header>
+
+    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {services.map((service) => (
+        <article
+          className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg"
+          key={service.title}
         >
-          Say Hello!
-        </a>
-      </div>
-      <div className="">
-        {rolesData.map((role, index) => (
-          <Roles role={role} key={index} />
-        ))}
-      </div>
+          <div className="aspect-[16/9] overflow-hidden bg-[#F6F2FC]">
+            <img
+              alt={service.imageAlt}
+              className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+              height="440"
+              loading="lazy"
+              src={service.image}
+              width="800"
+            />
+          </div>
+          <div className="p-5 sm:p-6">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-picto-primary">
+              {service.category}
+            </p>
+            <h3 className="text-lg font-semibold text-[#132238] sm:text-xl">
+              {service.title}
+            </h3>
+            <p className="mt-3 text-sm leading-7 text-[#697586]">
+              {service.description}
+            </p>
+          </div>
+        </article>
+      ))}
     </div>
-  );
-};
+
+    <div className="mt-10 text-center">
+      <a
+        className="btn btn-primary px-6 text-white"
+        href="#contact"
+      >
+        Discuss your project
+      </a>
+    </div>
+  </section>
+);
 
 export default Profession;

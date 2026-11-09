@@ -92,11 +92,14 @@ TEMPLATES = [
     },
 ]
 
+DJANGO_ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'chiderah-lwdc.vercel.app,www.chiderah-lwdc.vercel.app').split(',')
+
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'testimonial_submission': '5/hour',
+        'chat_support': '20/hour',
     },
 }
 
@@ -167,6 +170,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 

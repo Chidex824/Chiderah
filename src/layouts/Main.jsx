@@ -3,6 +3,7 @@ import NavBar from "../components/common/navbar/NavBar";
 import Footer from "../components/common/footer/Footer";
 import ScrollToTop from "../components/common/scrollToTop/ScrollToTop";
 import PageMetadata from "../components/common/PageMetadata";
+import ChatSupport from "../components/common/chatSupport/ChatSupport";
 
 const Main = () => {
   return (
@@ -14,6 +15,7 @@ const Main = () => {
         <Footer />
       </div>
       <ScrollToTop />
+      <ChatSupport />
     </div>
   );
 };

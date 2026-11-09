@@ -110,6 +110,15 @@ export const apiService = {
     }
   },
 
+  sendChatMessage: async (messages) => {
+    try {
+      const response = await api.post('/chat/', { messages });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
   // Portfolio/Projects
   getProjects: async () => {
     try {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import logo from "../../../assets/logo.png";
+import logo from "../../../assets/images/chidexgit.png";
 import { Link } from "react-scroll";
 
 const navItems = [
@@ -94,7 +94,15 @@ const NavBar = () => {
             duration={900}
             className="flex items-center border-0 lg:max-xxl:ps-5"
           >
-            <p className="text-2xl sm:text-[32px] my-auto ms-[12px] font-semibold">
+            <img
+              alt=""
+              aria-hidden="true"
+              className="h-9 w-9 shrink-0 rounded-full object-cover ring-2 ring-purple-100 sm:h-10 sm:w-10"
+              height="40"
+              src={logo}
+              width="40"
+            />
+            <p className="my-auto ms-3 text-2xl font-semibold sm:text-[32px]">
               Chiderah
             </p>
           </Link>
