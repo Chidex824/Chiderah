@@ -10,13 +10,17 @@ import SocialMedia from "../common/socialMedia/SocialMedia";
 const addressData = [
   {
     icon: faLocationDot,
-    title: "Address",
-    description: "Enugu, Nigeria",
+    title: "Locations",
+    description: "Enugu, Nigeria\nKaru, Nasarawa State, Nigeria",
   },
   {
     icon: faEnvelope,
     title: "My Email",
-    description: <a href="mailto:example@gmail.com">ugwuchiderahwilliams@gmail.com</a>,
+    description: (
+      <a href="mailto:ugwuchiderahwilliams@gmail.com">
+        ugwuchiderahwilliams@gmail.com
+      </a>
+    ),
   },
   {
     icon: faPhone,
@@ -33,7 +37,7 @@ const Contact = () => {
         id="contact"
       >
         <div className="flex flex-col-reverse lg:gap-5 xl:gap-25.75 lg:flex-row justify-between">
-          <div>
+          <div className="min-w-0 lg:flex-1">
             <div>
               <p className="text-[35px] max-lg:hidden font-semibold text-nowrap text-[#132238]">
                 Let’s discuss your Project
@@ -43,7 +47,7 @@ const Contact = () => {
                 project you think I'd be a good fit for.
               </p>
             </div>
-            <div className="my-8.75 sm:max-lg:flex justify-between items-center">
+            <div className="my-8.75 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
               {addressData.map((item, index) => (
                 <Address item={item} key={index} />
               ))}
@@ -52,7 +56,7 @@ const Contact = () => {
               <SocialMedia />
             </div>
           </div>
-          <div className="w-full overflow-y-scroll py-6.5">
+          <div className="w-full min-w-0 py-6.5 lg:flex-1">
             <p className="text-xl mb-2 xs:text-2xl sm:text-2xl md:text-[38px] font-semibold text-[#132238] lg:hidden text-center">
               Let’s discuss your Project
             </p>

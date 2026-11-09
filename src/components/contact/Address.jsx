@@ -27,7 +27,7 @@ const Address = ({ item }) => {
         <p className="text-[12px] md:text-[14px] text-[#424E60] font-normal">
           {item?.title}:
         </p>
-        <p className="text-[14px] md:text-[16px] text-[#132238] font-medium">
+        <p className="whitespace-pre-line break-words text-[14px] md:text-[16px] text-[#132238] font-medium">
           {item?.description}
         </p>
       </div>

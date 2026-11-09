@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Skills = () => {
   return (
     <div className='skills'>
@@ -38,4 +36,4 @@ const Skills = () => {
 
 
 
-export default skills
+export default Skills

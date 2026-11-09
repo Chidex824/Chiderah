@@ -1,4 +1,4 @@
-const effectiveDate = "November 3, 2026";
+const effectiveDate = "November 4, 2026";
 const contactEmail = "ugwuchiderahwilliams@gmail.com";
 
 const Policies = () => (
@@ -21,7 +21,8 @@ const Policies = () => (
     <section id="privacy-policy" className="scroll-mt-24 border-t border-gray-200 py-10">
       <h1 className="text-3xl font-semibold text-gray-900">Privacy Policy</h1>
       <p className="mt-4">
-        Ugwu Chiderah, based in Enugu, Nigeria, operates this portfolio website.
+        Ugwu Chiderah, based in Enugu, Nigeria and Karu, Nasarawa State, Nigeria,
+        operates this portfolio website.
         For privacy questions or requests, email{" "}
         <a className="underline" href={`mailto:${contactEmail}`}>{contactEmail}</a>.
       </p>
