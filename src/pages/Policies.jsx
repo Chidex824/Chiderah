@@ -1,4 +1,4 @@
-const effectiveDate = "November 4, 2026";
+const effectiveDate = "November 9, 2026";
 const contactEmail = "ugwuchiderahwilliams@gmail.com";
 
 const Policies = () => (
@@ -39,6 +39,11 @@ const Policies = () => (
           approved reviews may appear publicly.
         </li>
         <li>
+          If you consent to use chat support, your messages are sent to OpenAI
+          to generate replies. The chat is held in your browser session and is
+          not saved by this site unless you choose to submit a project inquiry.
+        </li>
+        <li>
           Technical information may be processed by the hosting and service
           providers needed to deliver the site.
         </li>
@@ -54,9 +59,10 @@ const Policies = () => (
         The site is hosted by Vercel; inquiry and review records are stored in
         the configured Neon database; portfolio and blog images are stored with
         Cloudinary when configured. Google Fonts and unpkg deliver fonts and
-        frontend resources. Those providers may process connection data when
-        your browser requests their services, under their own privacy terms.
-        Provider infrastructure may process data in other countries.
+        frontend resources. OpenAI processes chat messages to provide AI
+        responses. These providers may process information under their own
+        privacy terms, and provider infrastructure may process data in other
+        countries.
       </p>
 
       <h2 className="mt-8 text-xl font-semibold text-gray-900">Retention and your choices</h2>
@@ -71,7 +77,7 @@ const Policies = () => (
       </p>
       <p className="mt-3">
         Do not include passwords, payment details, health information, or other
-        sensitive information in a contact message or review.
+        sensitive information in a chat, contact message, or review.
       </p>
 
       <h2 className="mt-8 text-xl font-semibold text-gray-900">Security</h2>

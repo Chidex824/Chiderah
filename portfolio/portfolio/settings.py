@@ -97,6 +97,7 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'testimonial_submission': '5/hour',
+        'chat_support': '20/hour',
     },
 }
 

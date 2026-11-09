@@ -2,6 +2,26 @@ from rest_framework import serializers
 from .models import Contact, Portfolio, Blog, Testimonial, Skill, Experience, About
 
 
+class ChatMessageSerializer(serializers.Serializer):
+	role = serializers.ChoiceField(choices=('user', 'assistant'))
+	content = serializers.CharField(max_length=1200, trim_whitespace=True)
+
+
+class ChatRequestSerializer(serializers.Serializer):
+	messages = serializers.ListField(
+		child=ChatMessageSerializer(),
+		min_length=1,
+		max_length=12,
+	)
+
+	def validate_messages(self, messages):
+		if sum(len(message['content']) for message in messages) > 8000:
+			raise serializers.ValidationError('The conversation is too long.')
+		if messages[-1]['role'] != 'user':
+			raise serializers.ValidationError('The latest message must be from the visitor.')
+		return messages
+
+
 class ContactSerializer(serializers.ModelSerializer):
 	privacy_consent = serializers.BooleanField(required=True)
 
