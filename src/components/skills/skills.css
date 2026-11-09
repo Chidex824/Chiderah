@@ -1,0 +1,31 @@
+.skill-rating__track {
+  height: 0.5rem;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: #e6e8eb;
+}
+
+.skill-rating__fill {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #9929fb, #c084fc);
+  animation: skill-rating-fill 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--skill-delay, 0ms);
+}
+
+@keyframes skill-rating-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-rating__fill {
+    animation: none;
+    transform: scaleX(1);
+  }
+}
