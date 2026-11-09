@@ -15,7 +15,7 @@ const Profile = () => {
           <div className="max-w-106 h-117 object-fill overflow-hidden rounded-xl">
             <img
               className="bg-soft-white h-[120%] object-cover"
-              src={chidexgit}
+              src={/assets/images/chidexgit.png}
               alt=""
             />
           </div>
