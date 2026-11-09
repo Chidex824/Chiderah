@@ -1,8 +1,3 @@
-import React from 'react'
-import { getAnimationType } from 'react-scroll/modules/mixins/animate-scroll'
-import index from '../../index.css'
-
-
 const Experience = () => {
   return (
     <div className='bg-soft-white py-20 px-2 Experience container text-center mx-auto col-span-12 md:col-span-6 lg:col-span-4 color-black font-bold '>
