@@ -25,7 +25,7 @@ const experience = [
 const Experience = () => (
   <section
     aria-labelledby="experience-heading"
-    className="container mx-auto col-span-12 bg-soft-white px-4 py-16 md:col-span-6 md:py-20 lg:col-span-4"
+    className="mx-auto max-w-5xl rounded-2xl border border-gray-100 bg-white px-4 py-12 shadow-lg shadow-slate-900/5 sm:px-8 sm:py-16 md:px-12"
     id="experience"
   >
     <header className="mx-auto mb-10 max-w-2xl text-center md:mb-14">

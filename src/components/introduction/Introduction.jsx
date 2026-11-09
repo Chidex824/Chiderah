@@ -5,6 +5,24 @@ import InformationSummary from "./InformationSummary";
 import { apiService } from "../../services/api";
 import LoadingSpinner from "../common/loading/LoadingSpinner";
 
+const defaultSummaryData = [
+  {
+    id: "experience",
+    title: "Experience",
+    description: "3 Y.",
+  },
+  {
+    id: "projects",
+    title: "Projects Completed",
+    description: "10+",
+  },
+  {
+    id: "clients",
+    title: "Happy Clients",
+    description: "58",
+  },
+];
+
 const Introduction = () => {
   const [aboutData, setAboutData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -23,9 +41,7 @@ const Introduction = () => {
           // title: "Full Stack Software Developer",
           // description: "I'm a Full Stack Software Developer based in Nigeria. I build responsive and high-performance web applications using modern technologies, ensuring accessibility, scalability, and maintainability.",
           // email: "chiderahugwu645@gmail.com",
-          stats: [
-            
-          ]
+          stats: [],
         });
       } finally {
         setLoading(false);
@@ -53,23 +69,10 @@ const Introduction = () => {
     );
   }
 
-  const informationSummaryData = aboutData?.stats || [
-    {
-      id: 1,
-      title: "Experience",
-      description: "3 Y.",
-    },
-    {
-      id: 2,
-      title: "Projects Completed",
-      description: "10+",
-    },
-    {
-      id: 3,
-      title: "Happy Clients",
-      description: "58",
-    },
-  ];
+  const informationSummaryData =
+    Array.isArray(aboutData?.stats) && aboutData.stats.length > 0
+      ? aboutData.stats
+      : defaultSummaryData;
   return (
     <div
       className="flex max-lg:flex-col-reverse sm:justify-between pt-10 lg:pt-31.5 lg:mb-27.5 max-xl:gap-2 p-2 max-xxl:px-4"
@@ -97,10 +100,13 @@ const Introduction = () => {
             </a>
           </p>
         </div>
-        <div className="mx-auto lg:mx-0 relative">
-          <div className="grid max-xxs:grid-flow-col grid-cols-3 w-fit mt-10 gap-1">
+        <div className="relative z-20 mx-auto mt-10 w-full max-w-xl lg:mx-0">
+          <div className="grid grid-cols-3 gap-2">
             {informationSummaryData.map((item) => (
-              <InformationSummary key={item.id} item={item} />
+              <InformationSummary
+                key={item.id ?? item.title}
+                item={item}
+              />
             ))}
           </div>
         </div>
