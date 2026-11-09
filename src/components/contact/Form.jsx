@@ -277,7 +277,7 @@ const Form = () => {
             <p className="text-red-500 text-sm mt-1">{fieldErrors.privacy_consent}</p>
           )}
           <button
-            link
+            href="https://wa.me/2348050347869"
             type="submit"
             disabled={isSubmitting}
             aria-busy={isSubmitting}
